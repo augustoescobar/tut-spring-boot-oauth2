@@ -45,9 +45,13 @@
             }
           });
           $.get("/user", function(data) {
-            $("#user").html(data.userAuthentication.details.name);
-            $(".unauthenticated").hide();
-            $(".authenticated").show();
+              try {
+                  $("#user").html(data.name);
+                  $(".unauthenticated").hide();
+                  $(".authenticated").show();
+              } catch (e) {
+                  console.log(data, e);
+              }
           });
           var logout = function() {
             $.post("/logout", function() {
