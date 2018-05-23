@@ -46,9 +46,11 @@
           });
           $.get("/user", function(data) {
               try {
-                  $("#user").html(data.name);
-                  $(".unauthenticated").hide();
-                  $(".authenticated").show();
+                  if (data.name) {
+                      $("#user").html(data.name);
+                      $(".unauthenticated").hide();
+                      $(".authenticated").show();
+                  }
               } catch (e) {
                   console.log(data, e);
               }
@@ -58,7 +60,7 @@
               $("#user").html('');
               $(".unauthenticated").show();
               $(".authenticated").hide();
-            })
+            });
             return true;
           }
         </script>
