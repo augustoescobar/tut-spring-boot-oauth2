@@ -5,6 +5,8 @@ security:
       client-secret: acmesecret
       scope: read,write
       auto-approve-scopes: '.*'
+#      access-token-validity-seconds: 10
+#      refresh-token-validity-seconds: 25
 
 facebook:
   client:
@@ -17,6 +19,7 @@ facebook:
     clientAuthenticationScheme: form
   resource:
     userInfoUri: https://graph.facebook.com/me
+
 github:
   client:
     clientId: bd1c0a783ccdd1c9b9e4
@@ -26,6 +29,17 @@ github:
     clientAuthenticationScheme: form
   resource:
     userInfoUri: https://api.github.com/user
+
+google:
+  client:
+    clientId: 690097299474-t210nttlaj2isv45bjtqec57ph7cmvvv.apps.googleusercontent.com
+    clientSecret: gFmO9i9nFgmr-LxUNjEeBBWp
+    accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+    userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+    tokenName: authorization_code
+    scope: https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/userinfo.profile
+  resource:
+    userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
 
 logging:
   level:

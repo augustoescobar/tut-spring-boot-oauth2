@@ -57,12 +57,21 @@ public class SocialApplication extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
-		http.antMatcher("/**").authorizeRequests().antMatchers("/", "/login**", "/webjars/**", "/error**").permitAll().anyRequest()
-				.authenticated().and().exceptionHandling()
-				.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and().logout()
-				.logoutSuccessUrl("/").permitAll().and().csrf()
-				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
-				.addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
+		http
+				.antMatcher("/**")
+					.authorizeRequests()
+				.antMatchers("/", "/login**", "/webjars/**", "/error**")
+					.permitAll()
+				.anyRequest()
+					.authenticated()
+				.and().exceptionHandling()
+					.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"))
+				.and().logout()
+					.logoutSuccessUrl("/")
+					.permitAll()
+				.and().csrf()
+					.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+				.and().addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
 		// @formatter:on
 	}
 
@@ -79,15 +88,13 @@ public class SocialApplication extends WebSecurityConfigurerAdapter {
 	}
 
 	private Filter ssoFilter() {
-		OAuth2ClientAuthenticationProcessingFilter facebookFilter = new OAuth2ClientAuthenticationProcessingFilter(
-				"/login/facebook");
+		OAuth2ClientAuthenticationProcessingFilter facebookFilter = new OAuth2ClientAuthenticationProcessingFilter("/login/facebook");
 		OAuth2RestTemplate facebookTemplate = new OAuth2RestTemplate(facebook(), oauth2ClientContext);
 		facebookFilter.setRestTemplate(facebookTemplate);
 		UserInfoTokenServices tokenServices = new UserInfoTokenServices(facebookResource().getUserInfoUri(),
 				facebook().getClientId());
 		tokenServices.setRestTemplate(facebookTemplate);
-		facebookFilter.setTokenServices(
-				new UserInfoTokenServices(facebookResource().getUserInfoUri(), facebook().getClientId()));
+		facebookFilter.setTokenServices(tokenServices);
 		return facebookFilter;
 	}
 

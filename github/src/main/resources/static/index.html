@@ -22,6 +22,9 @@
         <div>
             With Github: <a href="/login/github">click here</a>
         </div>
+        <div>
+            With Google: <a href="/login/google">click here</a>
+        </div>
     </div>
     <div class="container authenticated" style="display: none">
         Logged in as: <span id="user"></span>
@@ -45,9 +48,11 @@
             }
           });
           $.get("/user", function(data) {
-            $("#user").html(data.name);
-            $(".unauthenticated").hide();
-            $(".authenticated").show();
+              if (data.name) {
+                  $("#user").html(data.name);
+                  $(".unauthenticated").hide();
+                  $(".authenticated").show();
+              }
           });
           var logout = function() {
             $.post("/logout", function() {
