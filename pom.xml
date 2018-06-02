@@ -16,7 +16,8 @@
 		<module>github</module>
 		<module>auth-server</module>
 		<module>custom-error</module>
-	</modules>
+        <module>user-form-auth-server</module>
+    </modules>
 	
     <build>
       <plugins>

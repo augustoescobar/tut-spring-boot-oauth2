@@ -8,6 +8,24 @@ security:
 #      access-token-validity-seconds: 10
 #      refresh-token-validity-seconds: 25
 
+spring:
+  datasource:
+      url: jdbc:mysql://localhost:3306/uhul
+      username: root
+      password: uhul
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      javax:
+        persistence:
+          schema-generation:
+            scripts:
+#              create-target: my-schema.sql
+#              action: create
+
 facebook:
   client:
     clientId: 233668646673605
